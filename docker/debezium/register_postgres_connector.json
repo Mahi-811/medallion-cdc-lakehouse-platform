@@ -1,0 +1,17 @@
+{
+  "name": "ecommerce-postgres-cdc-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "plugin.name": "pgoutput",
+    "database.hostname": "postgres-oltp",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "postgrespassword",
+    "database.dbname": "ecommerce_oltp",
+    "database.server.name": "oltp",
+    "table.include.list": "public.customers,public.products,public.orders,public.order_items",
+    "tombstones.on.delete": "true",
+    "decimal.handling.mode": "double"
+  }
+}

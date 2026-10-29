@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: silver_orders
+    description: "Conformed, cleaned, and deduplicated transactional orders from Postgres CDC with delete handling."
+    columns:
+      - name: order_id
+        description: "Primary natural key of the order."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key referencing customers."
+        tests:
+          - not_null
+      - name: order_status
+        description: "Validated order fulfillment status."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED']
+      - name: gross_amount
+        tests:
+          - not_null
+      - name: net_amount
+        tests:
+          - not_null
+
+  - name: silver_customers
+    description: "Deduplicated and normalized customer contact profiles."
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: email
+        tests:
+          - not_null
+      - name: loyalty_tier
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['BRONZE', 'SILVER', 'GOLD', 'PLATINUM']
+
+  - name: silver_products
+    description: "Conformed product catalog reconciled with supplier manifest CSV drops."
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+      - name: sku
+        tests:
+          - unique
+          - not_null
+      - name: unit_cost
+        tests:
+          - not_null
+      - name: list_price
+        tests:
+          - not_null
+
+  - name: silver_weather
+    description: "Aggregated daily meteorological indicators conformed by city and date."
+    columns:
+      - name: metric_date
+        tests:
+          - not_null
+      - name: city
+        tests:
+          - not_null
+      - name: weather_condition
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['PLEASANT', 'RAINY', 'HOT', 'COLD']

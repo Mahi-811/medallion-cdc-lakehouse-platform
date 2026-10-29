@@ -1,0 +1,18 @@
+[sqlfluff]
+dialect = duckdb
+templater = dbt
+max_line_length = 120
+exclude_rules = LT01,LT02,LT05,CP01,ST06,ST02,RF04,RF02,AL01
+
+[sqlfluff:templater:dbt]
+project_dir = ./dbt
+profiles_dir = ./dbt
+profile = medallion_lakehouse
+target = dev
+
+[sqlfluff:indentation]
+indent_unit = space
+tab_space_size = 4
+
+[sqlfluff:layout:type:comma]
+line_position = trailing

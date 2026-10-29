@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Append-only Bronze landing layer containing raw CDC mutation events, CSV file drops, and API payloads."
+    schema: bronze
+    tables:
+      - name: bronze_orders_cdc
+        description: "Raw Debezium CDC change stream for Postgres OLTP orders table (op: r, c, u, d)."
+        columns:
+          - name: _loaded_at
+            description: "Timestamp when record was appended to bronze layer."
+            tests:
+              - not_null
+          - name: _source
+            description: "Source identifier tag."
+            tests:
+              - not_null
+          - name: _batch_id
+            description: "Unique ingestion micro-batch UUID."
+            tests:
+              - not_null
+          - name: order_id
+            description: "Source transactional order ID."
+            tests:
+              - not_null
+
+      - name: bronze_customers_cdc
+        description: "Raw Debezium CDC change stream for Postgres OLTP customers table."
+        columns:
+          - name: customer_id
+            tests:
+              - not_null
+
+      - name: bronze_products_cdc
+        description: "Raw Debezium CDC change stream for Postgres OLTP products catalog."
+        columns:
+          - name: product_id
+            tests:
+              - not_null
+
+      - name: bronze_order_items_cdc
+        description: "Raw Debezium CDC change stream for Postgres OLTP order items."
+        columns:
+          - name: item_id
+            tests:
+              - not_null
+
+      - name: bronze_supplier_inventory_csv
+        description: "Schema-validated supplier inventory and restocking manifest dropped into object store."
+        columns:
+          - name: supplier_id
+            tests:
+              - not_null
+          - name: product_sku
+            tests:
+              - not_null
+
+      - name: bronze_weather_api
+        description: "Daily weather metrics ingested from Open-Meteo REST API."
+        columns:
+          - name: metric_date
+            tests:
+              - not_null
+          - name: city
+            tests:
+              - not_null

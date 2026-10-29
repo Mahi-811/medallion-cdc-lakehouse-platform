@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="100%">
+  <defs>
+    <style>
+      .box { rx: 8; stroke-width: 2; }
+      .source { fill: #EFF6FF; stroke: #3B82F6; }
+      .bronze { fill: #FEF3C7; stroke: #F59E0B; }
+      .silver { fill: #F3F4F6; stroke: #6B7280; }
+      .gold { fill: #FEF9C3; stroke: #EAB308; }
+      .mart { fill: #ECFDF5; stroke: #10B981; }
+      .text-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 600; fill: #1F2937; }
+      .text-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10px; fill: #6B7280; }
+      .line { stroke: #9CA3AF; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#6B7280" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="520" fill="#FFFFFF" rx="12" />
+
+  <!-- Column Labels -->
+  <text x="70" y="30" font-family="sans-serif" font-size="14" font-weight="700" fill="#2563EB">SOURCES</text>
+  <text x="250" y="30" font-family="sans-serif" font-size="14" font-weight="700" fill="#D97706">BRONZE (RAW)</text>
+  <text x="450" y="30" font-family="sans-serif" font-size="14" font-weight="700" fill="#4B5563">SILVER (CONFORMED)</text>
+  <text x="680" y="30" font-family="sans-serif" font-size="14" font-weight="700" fill="#CA8A04">GOLD (STAR SCHEMA)</text>
+  <text x="910" y="30" font-family="sans-serif" font-size="14" font-weight="700" fill="#059669">BUSINESS MARTS</text>
+
+  <!-- Sources -->
+  <g transform="translate(30, 60)">
+    <rect class="box source" width="140" height="50" />
+    <text class="text-title" x="12" y="25">REST API</text>
+    <text class="text-sub" x="12" y="40">Open-Meteo Weather</text>
+  </g>
+  <g transform="translate(30, 160)">
+    <rect class="box source" width="140" height="50" />
+    <text class="text-title" x="12" y="25">CSV Drops</text>
+    <text class="text-sub" x="12" y="40">Supplier Inventory</text>
+  </g>
+  <g transform="translate(30, 260)">
+    <rect class="box source" width="140" height="50" />
+    <text class="text-title" x="12" y="25">Postgres OLTP</text>
+    <text class="text-sub" x="12" y="40">Orders & Customers</text>
+  </g>
+
+  <!-- Bronze Nodes -->
+  <g transform="translate(230, 60)">
+    <rect class="box bronze" width="160" height="45" />
+    <text class="text-title" x="10" y="22">bronze_weather_api</text>
+    <text class="text-sub" x="10" y="36">Append-only metrics</text>
+  </g>
+  <g transform="translate(230, 160)">
+    <rect class="box bronze" width="160" height="45" />
+    <text class="text-title" x="10" y="22">bronze_supplier_csv</text>
+    <text class="text-sub" x="10" y="36">Validated manifests</text>
+  </g>
+  <g transform="translate(230, 260)">
+    <rect class="box bronze" width="160" height="45" />
+    <text class="text-title" x="10" y="22">bronze_orders_cdc</text>
+    <text class="text-sub" x="10" y="36">Debezium CDC events</text>
+  </g>
+  <g transform="translate(230, 340)">
+    <rect class="box bronze" width="160" height="45" />
+    <text class="text-title" x="10" y="22">bronze_customers_cdc</text>
+    <text class="text-sub" x="10" y="36">Customer mutation stream</text>
+  </g>
+  <g transform="translate(230, 420)">
+    <rect class="box bronze" width="160" height="45" />
+    <text class="text-title" x="10" y="22">bronze_products_cdc</text>
+    <text class="text-sub" x="10" y="36">Catalog mutation stream</text>
+  </g>
+
+  <!-- Silver Nodes -->
+  <g transform="translate(440, 60)">
+    <rect class="box silver" width="160" height="45" />
+    <text class="text-title" x="10" y="22">silver_weather</text>
+    <text class="text-sub" x="10" y="36">Deduplicated & classified</text>
+  </g>
+  <g transform="translate(440, 160)">
+    <rect class="box silver" width="160" height="45" />
+    <text class="text-title" x="10" y="22">silver_products</text>
+    <text class="text-sub" x="10" y="36">Enriched catalog</text>
+  </g>
+  <g transform="translate(440, 260)">
+    <rect class="box silver" width="160" height="45" />
+    <text class="text-title" x="10" y="22">silver_orders</text>
+    <text class="text-sub" x="10" y="36">CDC deletes & ops handled</text>
+  </g>
+  <g transform="translate(440, 340)">
+    <rect class="box silver" width="160" height="45" />
+    <text class="text-title" x="10" y="22">silver_customers</text>
+    <text class="text-sub" x="10" y="36">Conformed profiles</text>
+  </g>
+
+  <!-- Gold Nodes -->
+  <g transform="translate(660, 60)">
+    <rect class="box gold" width="160" height="45" />
+    <text class="text-title" x="10" y="22">dim_date</text>
+    <text class="text-sub" x="10" y="36">2024-2028 Calendar</text>
+  </g>
+  <g transform="translate(660, 160)">
+    <rect class="box gold" width="160" height="45" />
+    <text class="text-title" x="10" y="22">dim_product</text>
+    <text class="text-sub" x="10" y="36">Margins & Inventory</text>
+  </g>
+  <g transform="translate(660, 260)">
+    <rect class="box gold" width="160" height="45" />
+    <text class="text-title" x="10" y="22">fact_orders</text>
+    <text class="text-sub" x="10" y="36">Partitioned & Clustered</text>
+  </g>
+  <g transform="translate(660, 360)">
+    <rect class="box gold" width="160" height="45" />
+    <text class="text-title" x="10" y="22">dim_customer (SCD2)</text>
+    <text class="text-sub" x="10" y="36">Historical validity</text>
+  </g>
+
+  <!-- Marts Nodes -->
+  <g transform="translate(890, 110)">
+    <rect class="box mart" width="170" height="50" />
+    <text class="text-title" x="10" y="22">mart_daily_revenue</text>
+    <text class="text-sub" x="10" y="38">Rollups & Cancellation %</text>
+  </g>
+  <g transform="translate(890, 230)">
+    <rect class="box mart" width="170" height="50" />
+    <text class="text-title" x="10" y="22">mart_customer_ltv</text>
+    <text class="text-sub" x="10" y="38">RFM & Churn Bands</text>
+  </g>
+  <g transform="translate(890, 350)">
+    <rect class="box mart" width="170" height="50" />
+    <text class="text-title" x="10" y="22">mart_product_performance</text>
+    <text class="text-sub" x="10" y="38">Margin & Revenue Rank</text>
+  </g>
+
+  <!-- Connectors -->
+  <path class="line" d="M 170 85 L 230 85" />
+  <path class="line" d="M 170 185 L 230 185" />
+  <path class="line" d="M 170 285 L 230 285" />
+  <path class="line" d="M 170 285 L 230 360" />
+  <path class="line" d="M 170 285 L 230 440" />
+
+  <path class="line" d="M 390 85 L 440 85" />
+  <path class="line" d="M 390 185 L 440 185" />
+  <path class="line" d="M 390 440 L 440 185" />
+  <path class="line" d="M 390 285 L 440 285" />
+  <path class="line" d="M 390 360 L 440 360" />
+
+  <path class="line" d="M 600 360 L 660 380" />
+  <path class="line" d="M 600 185 L 660 185" />
+  <path class="line" d="M 600 285 L 660 285" />
+  <path class="line" d="M 660 185 L 660 260" />
+  <path class="line" d="M 660 360 L 660 305" />
+
+  <path class="line" d="M 820 270 L 890 135" />
+  <path class="line" d="M 820 285 L 890 255" />
+  <path class="line" d="M 820 295 L 890 375" />
+</svg>

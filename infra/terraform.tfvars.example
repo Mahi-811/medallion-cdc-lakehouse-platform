@@ -1,0 +1,5 @@
+project_id             = "my-gcp-project-id"
+region                 = "US"
+environment            = "prod"
+retention_days_landing = 30
+enable_versioning      = true

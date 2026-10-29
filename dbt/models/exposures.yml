@@ -1,0 +1,41 @@
+version: 2
+
+exposures:
+  - name: executive_kpi_dashboard
+    label: "Executive KPI & Daily Revenue Dashboard"
+    type: dashboard
+    maturity: high
+    url: "https://bi.company.com/dashboards/executive-kpis"
+    description: "Daily C-suite executive dashboard tracking top-line gross & net revenues, AOV, and cancellation trends."
+    depends_on:
+      - ref('mart_daily_revenue')
+      - ref('dim_date')
+    owner:
+      name: "Analytics Engineering Team"
+      email: "analytics-eng@company.com"
+
+  - name: customer_retention_bi_report
+    label: "Customer Retention & RFM Segmentation Report"
+    type: dashboard
+    maturity: medium
+    url: "https://bi.company.com/reports/customer-retention"
+    description: "Marketing BI report monitoring customer lifetime value, RFM segments, and churn risk tiers."
+    depends_on:
+      - ref('mart_customer_ltv')
+      - ref('dim_customer')
+    owner:
+      name: "Growth & Retention Team"
+      email: "growth@company.com"
+
+  - name: merchandise_pricing_analytics
+    label: "Merchandise Velocity & Margin Analytics"
+    type: analysis
+    maturity: high
+    url: "https://bi.company.com/analytics/merchandise"
+    description: "Supply chain and pricing analytics dashboard reviewing product margin, inventory turnover, and return rates."
+    depends_on:
+      - ref('mart_product_performance')
+      - ref('dim_product')
+    owner:
+      name: "Merchandising Strategy"
+      email: "merchandising@company.com"

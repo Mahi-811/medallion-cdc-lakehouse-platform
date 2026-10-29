@@ -1,0 +1,31 @@
+medallion_lakehouse:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('DBT_DUCKDB_PATH', 'C:/Users/HP/.gemini/antigravity/scratch/medallion-cdc-lakehouse-platform/data/warehouse/lakehouse.duckdb') }}"
+      schema: main
+      threads: 4
+    ci:
+      type: duckdb
+      path: "{{ env_var('DBT_DUCKDB_CI_PATH', 'C:/Users/HP/.gemini/antigravity/scratch/medallion-cdc-lakehouse-platform/data/warehouse/lakehouse_ci.duckdb') }}"
+      schema: ci
+      threads: 4
+    prod_bigquery:
+      type: bigquery
+      method: service-account
+      project: "{{ env_var('GCP_PROJECT_ID', 'medallion-lakehouse-prod') }}"
+      dataset: "{{ env_var('BIGQUERY_DATASET', 'analytics') }}"
+      threads: 8
+      keyfile: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS', '/path/to/sa-key.json') }}"
+      location: US
+    prod_snowflake:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT', 'xy12345.us-east-1') }}"
+      user: "{{ env_var('SNOWFLAKE_USER', 'DATA_ENGINEER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD', '') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'TRANSFORM_ROLE') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE', 'LAKEHOUSE_PROD') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'COMPUTE_WH') }}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA', 'PUBLIC') }}"
+      threads: 8
